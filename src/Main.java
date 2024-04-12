@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -10,11 +12,37 @@ public class Main {
         //System.out.println(Arrays.toString(timeline));
         int otvet = findMaxInterval(timeline);
         System.out.println("ответ "+otvet);
+        writeOtvetToFile(otvet, "output.txt");
+    }
+
+    private static void writeOtvetToFile(int otvet, String fname) {
+        try (FileWriter fileWriter = new FileWriter(fname)) {
+            fileWriter.write(String.valueOf(otvet)); // Записываем число в файл, конвертируя число в строку
+            fileWriter.flush(); // Очищаем буфер потока
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static int findMaxInterval(int[] timeline) {
-        return -9999;
+        int[] lastVisitTime = new int[101];
+        Arrays.fill(lastVisitTime, -1);
+        int maxInterval=0;
+        for (int i = 0; i < timeline.length; i++) {
+            int num = timeline[i];
+            if(lastVisitTime[num] != -1) {
+                int interval = i - lastVisitTime[num];
+                if( maxInterval < interval)
+                    maxInterval = interval;
+            }
+            lastVisitTime[num] = i;
+        }
+        return maxInterval;
     }
+
+   // private static int[] readTimeline2(String fname) throws FileNotFoundException {
+
+    //}
 
     private static int[] readTimeline(String fname) throws FileNotFoundException {
         Scanner scanner = new Scanner(new File(fname));
