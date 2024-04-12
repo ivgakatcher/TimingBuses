@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
-        int[] timeline = readTimeline("input.txt");
+        int[] timeline = readTimeline3("input.txt");
         //System.out.println("проверяем - исходный массив");
         //System.out.println(Arrays.toString(timeline));
         int otvet = findMaxInterval(timeline);
@@ -40,9 +40,35 @@ public class Main {
         return maxInterval;
     }
 
-   // private static int[] readTimeline2(String fname) throws FileNotFoundException {
+    private static int[] readTimeline3(String fname) throws FileNotFoundException {
+        Scanner scanner = new Scanner(new File(fname));
+        int n = scanner.nextInt();
+        scanner.nextLine(); //надо добавить переход на следующую строку
+        int[] numbers = new int[n];
+        String bigStr = scanner.nextLine();
+        scanner.close();
+        Scanner scanner2 = new Scanner(bigStr);
+        for (int i = 0; i < n; i++) {
+            numbers[i] = scanner2.nextInt();
+        }
 
-    //}
+        return numbers;
+    }
+
+    private static int[] readTimeline2(String fname) throws FileNotFoundException {
+        Scanner scanner = new Scanner(new File(fname));
+        int n = scanner.nextInt();
+        scanner.nextLine(); //надо добавить переход на следующую строку
+        int[] numbers = new int[n];
+        String bigStr = scanner.nextLine();
+        scanner.close();
+        String[] masStr = bigStr.split(" ");
+        for (int i = 0; i < n; i++) {
+            numbers[i] = Integer.parseInt(masStr[i]);
+        }
+
+        return numbers;
+    }
 
     private static int[] readTimeline(String fname) throws FileNotFoundException {
         Scanner scanner = new Scanner(new File(fname));
