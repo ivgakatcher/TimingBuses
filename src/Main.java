@@ -8,8 +8,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         int[] timeline = readTimeline3("input.txt");
-        //System.out.println("проверяем - исходный массив");
-        //System.out.println(Arrays.toString(timeline));
+        System.out.println("проверяем - исходный массив");
+        System.out.println(Arrays.toString(timeline));
         int otvet = findMaxInterval(timeline);
         System.out.println("ответ "+otvet);
         writeOtvetToFile(otvet, "output.txt");
